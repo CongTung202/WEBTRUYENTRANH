@@ -80,18 +80,18 @@ class Chapter extends Model
         }
 
         $now = now();
-        $diffMinutes = $time->diffInMinutes($now, false);
+        $diffMinutes = (int) floor(abs($now->diffInMinutes($time)));
 
         if ($diffMinutes < 30) {
             return 'Mới đây';
         }
 
-        $diffHours = $time->diffInHours($now, false);
+        $diffHours = (int) floor(abs($now->diffInHours($time)));
         if ($diffHours < 24) {
             return $diffHours . 'h';
         }
 
-        $diffDays = $time->diffInDays($now, false);
+        $diffDays = (int) floor(abs($now->diffInDays($time)));
         if ($diffDays < 30) {
             return $diffDays . ' ngày';
         }
