@@ -329,6 +329,54 @@ body.admin-body {
   border-radius: 10px;
 }
 
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  line-height: 1.2;
+  text-decoration: none;
+  background: rgba(80, 104, 145, 0.25);
+  color: #93c5fd;
+  border: 1px solid rgba(80, 104, 145, 0.4);
+}
+
+.badge-primary {
+  background: var(--admin-primary);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.badge-ongoing {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.badge-completed {
+  background: rgba(59, 130, 246, 0.18);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.badge-warning {
+  background: rgba(245, 158, 11, 0.18);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.badge-danger {
+  background: rgba(239, 68, 68, 0.18);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
 /* Fast Upload Box */
 .fast-upload-box {
   background: linear-gradient(145deg, #131b26, #182232);
