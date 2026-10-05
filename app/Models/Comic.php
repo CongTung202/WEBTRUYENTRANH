@@ -147,10 +147,33 @@ class Comic extends Model
         $time = $this->updated_at ?? $this->created_at;
         if ($this->latestChapter) {
             $chapTime = $this->latestChapter->updated_at ?? $this->latestChapter->created_at;
-            if ($chapTime && $chapTime->gt($time)) {
+            if ($chapTime && (!$time || $chapTime->gt($time))) {
                 $time = $chapTime;
             }
         }
-        return $time ? $time->diffForHumans(null, true, true) : 'Vừa xong';
+
+        if (!$time) {
+            return 'Mới đây';
+        }
+
+        $now = now();
+        $diffMinutes = $time->diffInMinutes($now, false);
+
+        // Nếu vừa đăng hoặc trong vòng dưới 30 phút (kể cả thời gian lệch trong tương lai)
+        if ($diffMinutes < 30) {
+            return 'Mới đây';
+        }
+
+        $diffHours = $time->diffInHours($now, false);
+        if ($diffHours < 24) {
+            return $diffHours . 'h';
+        }
+
+        $diffDays = $time->diffInDays($now, false);
+        if ($diffDays < 30) {
+            return $diffDays . ' ngày';
+        }
+
+        return $time->format('d/m/Y');
     }
 }

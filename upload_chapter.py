@@ -124,6 +124,8 @@ class DatabaseHelper:
         json_payload = json.dumps(payload).replace('\\', '\\\\').replace("'", "\\'")
 
         php_code = f"""<?php
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $now = date('Y-m-d H:i:s');
         try {{
             $pdo = new PDO('mysql:host={host};port={port};dbname={dbname};charset=utf8mb4', '{user}', '{password}', [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -143,27 +145,27 @@ class DatabaseHelper:
             $chapId = $stmt->fetchColumn();
 
             if ($chapId) {{
-                $upd = $pdo->prepare("UPDATE chapters SET title = ?, slug = ?, updated_at = NOW() WHERE id = ?");
-                $upd->execute([$title, $slug, $chapId]);
+                $upd = $pdo->prepare("UPDATE chapters SET title = ?, slug = ?, updated_at = ? WHERE id = ?");
+                $upd->execute([$title, $slug, $now, $chapId]);
                 
                 // Remove old pages if re-uploading
                 $del = $pdo->prepare("DELETE FROM chapter_pages WHERE chapter_id = ?");
                 $del->execute([$chapId]);
             }} else {{
-                $ins = $pdo->prepare("INSERT INTO chapters (comic_id, chapter_number, title, slug, views, created_at, updated_at) VALUES (?, ?, ?, ?, 0, NOW(), NOW())");
-                $ins->execute([$comicId, $chapNum, $title, $slug]);
+                $ins = $pdo->prepare("INSERT INTO chapters (comic_id, chapter_number, title, slug, views, created_at, updated_at) VALUES (?, ?, ?, ?, 0, ?, ?)");
+                $ins->execute([$comicId, $chapNum, $title, $slug, $now, $now]);
                 $chapId = $pdo->lastInsertId();
             }}
 
             // 2. Insert pages
-            $insPage = $pdo->prepare("INSERT INTO chapter_pages (chapter_id, page_number, image_url, cloudinary_public_id, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())");
+            $insPage = $pdo->prepare("INSERT INTO chapter_pages (chapter_id, page_number, image_url, cloudinary_public_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)");
             foreach ($data['pages'] as $p) {{
-                $insPage->execute([$chapId, (int)$p['page_number'], $p['image_url'], $p['cloudinary_public_id']]);
+                $insPage->execute([$chapId, (int)$p['page_number'], $p['image_url'], $p['cloudinary_public_id'], $now, $now]);
             }}
 
             // 3. Update comic updated_at
-            $updComic = $pdo->prepare("UPDATE comics SET updated_at = NOW() WHERE id = ?");
-            $updComic->execute([$comicId]);
+            $updComic = $pdo->prepare("UPDATE comics SET updated_at = ? WHERE id = ?");
+            $updComic->execute([$now, $comicId]);
 
             $pdo->commit();
             echo json_encode(['status' => 'ok', 'chapter_id' => $chapId]);

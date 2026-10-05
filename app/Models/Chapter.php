@@ -71,4 +71,31 @@ class Chapter extends Model
         }
         return $num;
     }
+
+    public function getUpdatedTimeFormattedAttribute(): string
+    {
+        $time = $this->updated_at ?? $this->created_at;
+        if (!$time) {
+            return 'Mới đây';
+        }
+
+        $now = now();
+        $diffMinutes = $time->diffInMinutes($now, false);
+
+        if ($diffMinutes < 30) {
+            return 'Mới đây';
+        }
+
+        $diffHours = $time->diffInHours($now, false);
+        if ($diffHours < 24) {
+            return $diffHours . 'h';
+        }
+
+        $diffDays = $time->diffInDays($now, false);
+        if ($diffDays < 30) {
+            return $diffDays . ' ngày';
+        }
+
+        return $time->format('d/m/Y');
+    }
 }
