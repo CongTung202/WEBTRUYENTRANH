@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Rating extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'comic_id',
+        'score',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function comic()
+    {
+        return $this->belongsTo(Comic::class);
+    }
+}

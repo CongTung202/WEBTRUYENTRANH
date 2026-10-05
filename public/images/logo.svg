@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg-color { fill: #203a70; }
+      .line-color { fill: none; stroke: #ffffff; stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+    </style>
+  </defs>
+  <!-- Face/Hair silhouette -->
+  <path class="bg-color" d="M125 150 C125 35 375 35 375 150 C440 250 450 380 380 375 C360 485 140 485 120 375 C50 380 60 250 125 150 Z"/>
+  <!-- Hair bangs outline -->
+  <path class="line-color" d="M85 300 L110 345 L135 270 L195 200 L250 380 L305 220 L380 370 L415 270 L425 310"/>
+  <!-- Eyes -->
+  <path class="line-color" d="M135 325 C135 370 215 370 215 325"/>
+  <path class="line-color" d="M295 325 C295 370 375 370 375 325"/>
+  <!-- Cross mouth -->
+  <path class="line-color" d="M220 420 L280 460 M280 420 L220 460"/>
+</svg>
