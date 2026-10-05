@@ -2450,17 +2450,66 @@ h1, h2, h3, h4, h5, h6 {
   }
   
   .header-top-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 8px 12px;
   }
   
   .brand-logo {
+    order: 1;
     font-size: 1.15rem;
   }
   
   .brand-logo img {
     width: 32px;
     height: 32px;
+  }
+
+  .header-auth-actions {
+    order: 2;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .admin-top-desktop-btn {
+    display: none !important;
+  }
+
+  .user-name-text, .user-caret-icon {
+    display: none !important;
+  }
+
+  .user-avatar-btn {
+    padding: 2px !important;
+    background: transparent !important;
+    border: 2px solid var(--primary) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .user-avatar-img {
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    display: block !important;
+  }
+
+  .user-dropdown {
+    position: relative;
+  }
+
+  .user-dropdown .dropdown-menu {
+    right: 0 !important;
+    left: auto !important;
+    min-width: 210px !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85);
   }
   
   .main-search-wrapper {
@@ -2481,24 +2530,10 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.85rem;
   }
   
-  .header-auth-actions {
-    gap: 6px;
-  }
-  
   .btn-register-top, .btn-login-top {
     padding: 6px 12px;
     font-size: 0.8rem;
     border-radius: var(--radius-sm);
-  }
-  
-  .user-avatar-btn {
-    padding: 4px 8px;
-    gap: 6px;
-  }
-  
-  .user-avatar-img {
-    width: 28px;
-    height: 28px;
   }
   
   /* Subnav Scrollable Horizontal Bar */

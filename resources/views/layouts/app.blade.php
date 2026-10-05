@@ -56,29 +56,42 @@
                 <div class="header-auth-actions">
                     @auth
                         @if(auth()->user()->isAdmin())
-                            <a href="{{ route('admin.dashboard') }}" class="btn btn-outline btn-sm" style="border-color: var(--primary);">
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-outline btn-sm admin-top-desktop-btn" style="border-color: var(--primary);">
                                 Admin
                             </a>
                         @endif
 
                         <div class="user-dropdown">
-                            <button class="user-avatar-btn" id="userMenuToggle">
+                            <button class="user-avatar-btn" id="userMenuToggle" title="{{ auth()->user()->name }}">
                                 <img src="{{ auth()->user()->avatar_url }}" alt="{{ auth()->user()->name }}" class="user-avatar-img">
-                                <span style="font-weight: 600; font-size: 0.9rem; color: #fff;">{{ Str::limit(auth()->user()->name, 14) }}</span>
-                                <i class="fa-solid fa-chevron-down" style="font-size: 0.72rem; color: var(--text-dim);"></i>
+                                <span class="user-name-text" style="font-weight: 600; font-size: 0.9rem; color: #fff;">{{ Str::limit(auth()->user()->name, 14) }}</span>
+                                <i class="fa-solid fa-chevron-down user-caret-icon" style="font-size: 0.72rem; color: var(--text-dim);"></i>
                             </button>
                             <div class="dropdown-menu" id="userDropdownMenu">
-                                <a href="{{ route('profile') }}" class="dropdown-item">Tài khoản</a>
-                                <a href="{{ route('bookmarks.index') }}" class="dropdown-item">Truyện theo dõi</a>
-                                <a href="{{ route('history.index') }}" class="dropdown-item">Lịch sử đọc</a>
                                 @if(auth()->user()->isAdmin())
-                                    <a href="{{ route('admin.tools.fast-upload') }}" class="dropdown-item" style="color: var(--accent);">Tool Đăng Chapter</a>
+                                    <a href="{{ route('admin.dashboard') }}" class="dropdown-item" style="color: var(--primary-light); font-weight: 700;">
+                                        <i class="fa-solid fa-gauge-high" style="width: 18px;"></i> Trang Quản trị
+                                    </a>
+                                @endif
+                                <a href="{{ route('profile') }}" class="dropdown-item">
+                                    <i class="fa-solid fa-user" style="width: 18px;"></i> Tài khoản
+                                </a>
+                                <a href="{{ route('bookmarks.index') }}" class="dropdown-item">
+                                    <i class="fa-solid fa-bookmark" style="width: 18px;"></i> Truyện theo dõi
+                                </a>
+                                <a href="{{ route('history.index') }}" class="dropdown-item">
+                                    <i class="fa-solid fa-clock-rotate-left" style="width: 18px;"></i> Lịch sử đọc
+                                </a>
+                                @if(auth()->user()->isAdmin())
+                                    <a href="{{ route('admin.tools.fast-upload') }}" class="dropdown-item" style="color: var(--accent);">
+                                        <i class="fa-solid fa-bolt" style="width: 18px;"></i> Tool Đăng Chapter
+                                    </a>
                                 @endif
                                 <hr style="border-color: var(--border-color); margin: 6px 0;">
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="dropdown-item" style="width: 100%; border: none; background: transparent; cursor: pointer; text-align: left; color: var(--accent-red);">
-                                        Đăng xuất
+                                        <i class="fa-solid fa-right-from-bracket" style="width: 18px;"></i> Đăng xuất
                                     </button>
                                 </form>
                             </div>
