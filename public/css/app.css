@@ -2379,3 +2379,448 @@ h1, h2, h3, h4, h5, h6 {
 .footer-text strong {
   color: #64748b;
 }
+
+/* ==============================================================================
+   COMPREHENSIVE RESPONSIVE DESIGN SYSTEM FOR ALL COMMON DEVICES
+   (Phones, Tablets, Laptops, Desktops)
+============================================================================== */
+
+/* --- 1. Large Desktops & Widescreens (> 1200px) --- */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1320px;
+    padding: 0 24px;
+  }
+}
+
+/* --- 2. Medium Laptops & Tablets Landscape (992px to 1199px) --- */
+@media (max-width: 1199px) {
+  .container {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+  .home-layout {
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+  }
+  .comics-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .main-search-wrapper {
+    max-width: 420px;
+  }
+}
+
+/* --- 3. Tablets Portrait & Small Laptops (768px to 991px) --- */
+@media (max-width: 991px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .comics-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .featured-slide {
+    flex: 0 0 85%;
+  }
+  .featured-slide-card {
+    height: 280px;
+  }
+  .comic-detail-wrapper {
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+  }
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+}
+
+/* --- 4. Mobile Phones & Phablets (< 768px) --- */
+@media (max-width: 767px) {
+  .container {
+    padding: 0 14px;
+  }
+  
+  /* Header Top Row */
+  .header-top-row {
+    padding: 8px 0;
+  }
+  
+  .header-top-inner {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .brand-logo {
+    font-size: 1.15rem;
+  }
+  
+  .brand-logo img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .main-search-wrapper {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 2px;
+  }
+  
+  .main-search-form input {
+    padding: 8px 42px 8px 14px;
+    font-size: 0.85rem;
+  }
+  
+  .main-search-submit {
+    width: 30px;
+    height: 30px;
+    font-size: 0.85rem;
+  }
+  
+  .header-auth-actions {
+    gap: 6px;
+  }
+  
+  .btn-register-top, .btn-login-top {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: var(--radius-sm);
+  }
+  
+  .user-avatar-btn {
+    padding: 4px 8px;
+    gap: 6px;
+  }
+  
+  .user-avatar-img {
+    width: 28px;
+    height: 28px;
+  }
+  
+  /* Subnav Scrollable Horizontal Bar */
+  .subnav-bar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .subnav-inner {
+    padding: 0 4px;
+    width: max-content;
+    min-width: 100%;
+  }
+  
+  .subnav-links {
+    gap: 2px;
+    width: max-content;
+  }
+  
+  .subnav-link {
+    padding: 10px 12px;
+    font-size: 0.84rem;
+  }
+  
+  /* Dropdowns on Mobile */
+  .subnav-dropdown-menu {
+    position: fixed !important;
+    top: auto !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: auto !important;
+    max-height: 65vh;
+    overflow-y: auto;
+    border-radius: var(--radius-md);
+  }
+  
+  .genre-mega-menu, .genre-grid-menu {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px;
+    width: 100% !important;
+  }
+  
+  /* Featured Banner */
+  .featured-slide {
+    flex: 0 0 94%;
+  }
+  
+  .featured-slide-card {
+    height: 200px;
+    border-radius: var(--radius-md);
+  }
+  
+  .featured-slide-title {
+    font-size: 1rem;
+  }
+  
+  .featured-slide-desc {
+    display: none;
+  }
+  
+  .btn-featured-action {
+    padding: 6px 12px;
+    font-size: 0.72rem;
+  }
+  
+  .featured-nav-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+  
+  /* Section Header */
+  .section-header {
+    margin: 20px 0 14px;
+    padding-bottom: 8px;
+  }
+  
+  .section-title {
+    font-size: 1.15rem;
+  }
+  
+  .view-more-link {
+    font-size: 0.8rem;
+  }
+  
+  /* 2-Column Comics Grid on Mobile Phones */
+  .comics-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  
+  .comic-card {
+    border-radius: var(--radius-sm);
+  }
+  
+  .comic-title-in-thumb {
+    font-size: 0.82rem;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+  
+  .comic-thumb-chap-row {
+    padding: 2px 6px;
+    font-size: 0.7rem;
+  }
+  
+  .comic-thumb-chap-row .chap-time {
+    font-size: 0.65rem;
+  }
+  
+  /* Rankings Widget on Mobile */
+  .rankings-widget {
+    padding: 14px 12px;
+  }
+  
+  .rank-thumb {
+    width: 42px;
+    height: 58px;
+  }
+  
+  .rank-title {
+    font-size: 0.85rem;
+  }
+  
+  /* Comic Show Detail Page on Mobile */
+  .comic-detail-hero {
+    padding: 20px 14px;
+    margin: 14px 0;
+    border-radius: var(--radius-md);
+  }
+  
+  .comic-detail-wrapper {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+    text-align: center;
+  }
+  
+  .comic-cover-container {
+    max-width: 170px;
+    margin: 0 auto;
+  }
+  
+  .comic-detail-cover {
+    border-width: 2px;
+  }
+  
+  .comic-detail-info h1 {
+    font-size: 1.35rem;
+  }
+  
+  .comic-alt-names {
+    font-size: 0.85rem;
+  }
+  
+  .comic-meta-grid {
+    grid-template-columns: 1fr !important;
+    gap: 6px;
+    font-size: 0.84rem;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+  }
+  
+  .comic-genres-list {
+    justify-content: center;
+    gap: 6px;
+  }
+  
+  .genre-tag {
+    font-size: 0.76rem;
+    padding: 4px 10px;
+  }
+  
+  .rating-box {
+    margin: 12px auto;
+    padding: 8px 14px;
+  }
+  
+  .comic-action-buttons {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .comic-action-buttons .btn {
+    width: 100%;
+    padding: 9px 10px;
+    font-size: 0.82rem;
+    justify-content: center;
+  }
+  
+  .comic-synopsis {
+    padding: 16px 14px;
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
+  }
+  
+  .chapter-list-section {
+    padding: 16px 14px;
+    border-radius: var(--radius-md);
+  }
+  
+  .chapter-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .chapter-search-input {
+    width: 100%;
+  }
+  
+  .chapters-grid-view {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px;
+    max-height: 380px;
+  }
+  
+  .chapter-row-btn {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+  
+  /* Reader Navigation on Mobile */
+  .reader-header {
+    height: 50px;
+    padding: 0 10px;
+  }
+  
+  .reader-comic-title {
+    max-width: 120px;
+    font-size: 0.85rem;
+  }
+  
+  .reader-select {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    max-width: 120px;
+  }
+  
+  .reader-controls .btn-sm {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+  
+  .reader-content-area {
+    margin: 50px auto 20px;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  
+  .webtoon-image-page {
+    min-height: auto;
+  }
+  
+  .reader-bottom-nav {
+    padding: 20px 12px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .reader-bottom-nav .btn-lg {
+    padding: 9px 16px;
+    font-size: 0.88rem;
+  }
+  
+  /* Comments Section on Mobile */
+  .comments-section {
+    padding: 16px 14px;
+    border-radius: var(--radius-md);
+  }
+  
+  .comment-card {
+    gap: 10px;
+  }
+  
+  .comment-user-avatar {
+    width: 34px;
+    height: 34px;
+  }
+  
+  .comment-body {
+    padding: 10px 12px;
+  }
+  
+  .comment-username {
+    font-size: 0.85rem;
+  }
+  
+  .comment-content {
+    font-size: 0.85rem;
+  }
+  
+  /* Footer on Mobile */
+  .site-footer {
+    padding: 30px 0 20px;
+    margin-top: 30px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .footer-grid .brand-logo {
+    justify-content: center;
+  }
+}
+
+/* --- 5. Extra Small Mobile Phones (< 380px) --- */
+@media (max-width: 380px) {
+  .chapters-grid-view {
+    grid-template-columns: 1fr !important;
+  }
+  .comic-action-buttons {
+    grid-template-columns: 1fr;
+  }
+  .reader-comic-title {
+    display: none;
+  }
+}

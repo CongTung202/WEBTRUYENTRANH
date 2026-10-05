@@ -26,8 +26,11 @@
 <body class="admin-body">
 
     <div class="admin-layout">
+        <!-- Sidebar Backdrop for Mobile -->
+        <div class="admin-sidebar-backdrop" id="adminSidebarBackdrop"></div>
+
         <!-- Sidebar -->
-        <aside class="admin-sidebar">
+        <aside class="admin-sidebar" id="adminSidebar">
             <div class="admin-brand">
                 <img src="{{ asset('images/logo.png') }}" alt="GTSCHunder" style="width: 36px; height: 36px; object-fit: contain; border-radius: 6px;">
                 <span>GTSC<span style="color: #506891;font-weight:bold;">HUNDER</span></span>
@@ -40,6 +43,7 @@
                 
                 <li class="admin-menu-item {{ request()->routeIs('admin.tools.fast-upload') ? 'active' : '' }}">
                     <a href="{{ route('admin.tools.fast-upload') }}">
+                        <i class="fa-solid fa-bolt" style="color: #f59e0b;"></i>
                         <span>Đăng Truyện Nhanh</span>
                     </a>
                 </li>
@@ -72,16 +76,21 @@
         <div class="admin-main">
             <!-- Topbar -->
             <header class="admin-topbar">
-                <h2 style="font-size: 1.2rem; font-weight: 700;">@yield('page_title', 'Bảng Điều Khiển')</h2>
-                <div style="display: flex; align-items: center; gap: 16px;">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <img src="{{ auth()->user()->avatar_url }}" alt="avatar" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--admin-primary);">
-                        <span style="font-weight: 600; font-size: 0.9rem;">{{ auth()->user()->name }}</span>
+                <div style="display: flex; align-items: center;">
+                    <button class="admin-sidebar-toggle" id="adminSidebarToggle" title="Menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h2 style="font-size: 1.15rem; font-weight: 700; margin: 0;">@yield('page_title', 'Bảng Điều Khiển')</h2>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <img src="{{ auth()->user()->avatar_url }}" alt="avatar" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--admin-primary);">
+                        <span style="font-weight: 600; font-size: 0.88rem;" class="admin-user-name-top">{{ Str::limit(auth()->user()->name, 12) }}</span>
                     </div>
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST" style="margin: 0;">
                         @csrf
-                        <button type="submit" class="btn btn-outline btn-sm" style="color: var(--admin-danger); border-color: rgba(239,68,68,0.3);">
-                            <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                        <button type="submit" class="btn btn-outline btn-sm" style="color: var(--admin-danger); border-color: rgba(239,68,68,0.3);" title="Đăng xuất">
+                            <i class="fa-solid fa-right-from-bracket"></i>
                         </button>
                     </form>
                 </div>
@@ -109,6 +118,22 @@
     </div>
 
     @include('partials.delete_confirm_modal')
+
+    <script>
+        // Admin Mobile Sidebar Toggle
+        const adminToggle = document.getElementById('adminSidebarToggle');
+        const adminSidebar = document.getElementById('adminSidebar');
+        const adminBackdrop = document.getElementById('adminSidebarBackdrop');
+
+        if (adminToggle && adminSidebar && adminBackdrop) {
+            function toggleSidebar() {
+                adminSidebar.classList.toggle('show');
+                adminBackdrop.classList.toggle('show');
+            }
+            adminToggle.addEventListener('click', toggleSidebar);
+            adminBackdrop.addEventListener('click', toggleSidebar);
+        }
+    </script>
 
     @stack('scripts')
 </body>

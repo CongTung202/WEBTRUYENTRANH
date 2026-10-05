@@ -610,3 +610,113 @@ body.admin-body {
   color: #ef4444;
   border: 1px solid rgba(239, 68, 68, 0.4);
 }
+
+/* ==============================================================================
+   ADMIN RESPONSIVE STYLES (Tablets & Mobile Phones)
+============================================================================== */
+.admin-sidebar-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--admin-border);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+.admin-sidebar-backdrop {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .admin-sidebar-toggle {
+    display: inline-flex;
+  }
+
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 270px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 10px 0 35px rgba(0, 0, 0, 0.85);
+  }
+
+  .admin-sidebar.show {
+    left: 0;
+  }
+
+  .admin-sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 999;
+    display: none;
+  }
+
+  .admin-sidebar-backdrop.show {
+    display: block;
+  }
+
+  .admin-topbar {
+    padding: 0 16px;
+    height: 60px;
+  }
+
+  .admin-content {
+    padding: 16px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+  }
+
+  .admin-card-box {
+    padding: 14px;
+    border-radius: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .admin-table th, .admin-table td {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+  }
+
+  .btn-sm {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+
+  .admin-topbar h2 {
+    font-size: 1rem !important;
+  }
+}
+
