@@ -77,7 +77,7 @@ class DatabaseHelper:
         try {{
             $pdo = new PDO('mysql:host={host};port={port};dbname={dbname};charset=utf8mb4', '{user}', '{password}', [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_TIMEOUT => 4
+                PDO::ATTR_TIMEOUT => 8
             ]);
             $stmt = $pdo->query("
                 SELECT c.id, c.title, c.slug, 
@@ -94,13 +94,16 @@ class DatabaseHelper:
         """
 
         try:
-            proc = subprocess.run(["php"], input=php_code, text=True, capture_output=True, timeout=8)
-            res = json.loads(proc.stdout.strip())
+            proc = subprocess.run(["php"], input=php_code, text=True, capture_output=True, timeout=12)
+            raw = proc.stdout.strip()
+            if not raw:
+                return [], proc.stderr.strip() or "PHP CLI không trả về kết quả"
+            res = json.loads(raw)
             if res.get("status") == "ok":
-                return res.get("comics", [])
+                return res.get("comics", []), None
+            return [], res.get("message", "Lỗi CSDL không xác định")
         except Exception as e:
-            print(f"Lỗi lấy danh sách truyện: {e}")
-        return []
+            return [], str(e)
 
     @staticmethod
     def save_chapter(env, comic_id, chapter_number, title, pages_data):
@@ -556,10 +559,16 @@ class ChapterUploaderGUI:
         self.txt_log.see(tk.END)
 
     def refresh_comics(self):
-        self.log("Đang tải danh sách bộ truyện từ MySQL...", "info")
-        self.comics_list = DatabaseHelper.get_comics_list(self.env)
-        if not self.comics_list:
-            self.log("⚠️ Không lấy được danh sách truyện. Vui lòng kiểm tra MySQL và cấu hình .env!", "warn")
+        self.env = load_env()
+        db_host = self.env.get("DB_HOST", "127.0.0.1")
+        db_name = self.env.get("DB_DATABASE", "webtruyentranh")
+        self.log(f"Đang kết nối MySQL tại {db_host} (DB: {db_name})...", "info")
+        
+        comics, err = DatabaseHelper.get_comics_list(self.env)
+        self.comics_list = comics
+        if err or not self.comics_list:
+            err_msg = err or "Không tìm thấy dữ liệu truyện"
+            self.log(f"⚠️ Lỗi kết nối CSDL: {err_msg}", "warn")
             self.cb_comic['values'] = ["(Không thể kết nối CSDL)"]
             return
 
@@ -572,7 +581,7 @@ class ChapterUploaderGUI:
         if items:
             self.cb_comic.current(0)
             self._on_comic_selected(None)
-        self.log(f"✓ Đã tải {len(self.comics_list)} bộ truyện từ CSDL.", "ok")
+        self.log(f"✓ Kết nối thành công! Đã tải {len(self.comics_list)} bộ truyện từ '{db_name}'.", "ok")
 
     def _on_comic_selected(self, event):
         idx = self.cb_comic.current()
@@ -819,9 +828,9 @@ def run_interactive_cli():
 
     # 1. Fetch Comics List
     print("\n🔍 Đang tải danh sách bộ truyện từ CSDL...")
-    comics = DatabaseHelper.get_comics_list(env)
-    if not comics:
-        print("❌ Không lấy được danh sách truyện từ CSDL. Vui lòng kiểm tra lại kết nối MySQL!")
+    comics, err = DatabaseHelper.get_comics_list(env)
+    if err or not comics:
+        print(f"❌ Không lấy được danh sách truyện từ CSDL: {err or 'Không có dữ liệu'}")
         input("Nhấn Enter để thoát...")
         return
 
